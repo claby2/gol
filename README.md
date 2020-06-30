@@ -12,8 +12,7 @@ gol is a single-file include which means you only need one header file to use it
 
 To compile all the examples:
 ```
-$ cd example
-$ make compile
+$ make example-compile
 ```
 
 ### Blinker Oscillator
@@ -89,8 +88,7 @@ This will print the following twice:
 Testing requires [Catch2](https://github.com/catchorg/Catch2/).
 Compile with:
 ```
-$ cd tests
-$ make compile
+$ make test-compile
 ```
 Run the tests with:
 ```
