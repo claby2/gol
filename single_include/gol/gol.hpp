@@ -1,10 +1,11 @@
 #ifndef GOL_HPP
 #define GOL_HPP
 
+#include <algorithm>
 #include <stdexcept>
 #include <stdlib.h>
-#include <time.h>
 #include <string>
+#include <time.h>
 
 namespace gol {
 
@@ -54,8 +55,17 @@ namespace gol {
         return survival_values;
     }
 
-    // TODO: Validation of rule string
-    bool isValidRuleString(std::string rule_string);
+    // Returns if given rule string follows B/S notation
+    // Notation is as follows: B{number list}/S{number list};
+    bool isValidRuleString(std::string rule_string) {
+        std::transform(rule_string.begin(), rule_string.end(), rule_string.begin(),
+            [](unsigned char c){ return std::tolower(c); });
+        return 
+            (std::count(rule_string.begin(), rule_string.end(), 'b') == 1) && 
+            (std::count(rule_string.begin(), rule_string.end(), 's') == 1) && 
+            (std::count(rule_string.begin(), rule_string.end(), '/') == 1) &&
+            (rule_string.find_first_not_of("b/s123456789") == std::string::npos);
+    }
 
     class BoardException : public std::runtime_error {
         public:
@@ -130,6 +140,9 @@ namespace gol {
 
             // Iterate to the next time step with a given rule string
             void nextStep(std::string rule_string_ = "B3/S23") {
+                if(!isValidRuleString(rule_string_)) {
+                    throw BoardException("Given rule string is not valid");
+                }
                 memcpy(buffer_board, board, rows * columns);
                 if(rule_string != rule_string_) { // && isValidRuleString(rule_string_)
                     rule_string = rule_string_;
