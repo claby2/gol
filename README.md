@@ -96,3 +96,29 @@ Run the tests with:
 ```
 $ make test
 ```
+
+## Reference
+
+### Functions
+
+| Function              | Use
+|-----------------------|----------------------------------------------------------|
+| initRandom            | Initialize random seed                                   |
+| getRandomBool         | Return a random bool                                     |
+| getBirthValues        | Return birth values from B/S notation rule string        |
+| getSurvivalValues     | Return survival values from B/S notation rule string     |
+| isValidString         | Test whether rule string is valid                        |
+
+### Board Member Functions
+
+| Function              | Use
+|-----------------------|----------------------------------------------------------|
+| (constructor)         | Construct Game of Life board                             |
+| operator[]            | Access element                                           |
+| height                | Return the number of rows                                |
+| width                 | Return the number of columns                             |
+| countNeighborsMoore   | Return number of true cells in Moore Neighborhood        |
+| countNeighborsNeumann | Return number of true cells in Von Neumann Neighborhood  |
+| nextStep              | Iterate to next time step                                |
+| setWrap               | Set to toggle wrapping for counting neighbors            |
+| getNeighborhoodType   | Return current neighborhood type                         |
