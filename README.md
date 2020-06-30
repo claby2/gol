@@ -117,8 +117,9 @@ $ make test
 | operator[]            | Access element                                           |
 | height                | Return the number of rows                                |
 | width                 | Return the number of columns                             |
-| countNeighborsMoore   | Return number of true cells in Moore Neighborhood        |
-| countNeighborsNeumann | Return number of true cells in Von Neumann Neighborhood  |
+| countNeighborsMoore   | Return number of true cells in Moore neighborhood        |
+| countNeighborsNeumann | Return number of true cells in von Neumann neighborhood  |
 | nextStep              | Iterate to next time step                                |
 | setWrap               | Set to toggle wrapping for counting neighbors            |
+| getWrap               | Get the current wrap state                               |
 | getNeighborhoodType   | Return current neighborhood type                         |
