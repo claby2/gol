@@ -3,6 +3,14 @@
 
 #include "../single_include/gol/gol.hpp"
 
+void setBoardAsFalse(gol::Board &board) {
+    for(int i = 0; i < board.height(); i++) {
+        for(int j = 0; j < board.width(); j++) {
+            board[i][j] = false;
+        }
+    }
+}
+
 TEST_CASE("Game of Life", "[gol]") {
 
     SECTION("Rule String", "[rule_string]") {
@@ -50,6 +58,90 @@ TEST_CASE("Game of Life", "[gol]") {
         REQUIRE(board.getWrap() == true); // true is default value
         board.setWrap(false);
         REQUIRE(board.getWrap() == false);
+    }
+
+    SECTION("Game of Life Simulations", "[simulations]") {
+        SECTION("Beacon Oscillator") {
+            gol::Board board(10, 10);
+            setBoardAsFalse(board);
+            board[2][2] = true;
+            board[2][3] = true;
+            board[3][2] = true;
+            board[4][5] = true;
+            board[5][4] = true;
+            board[5][5] = true;
+            board.nextStep("B3/S23");
+            bool expectedBoard[10][10] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
+        SECTION("Blinker Oscillator") {
+            gol::Board board(10, 10);
+            setBoardAsFalse(board);
+            board[2][2] = true;
+            board[2][3] = true;
+            board[2][4] = true;
+            board.nextStep("B3/S23");
+            bool expectedBoard[10][10] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
+        SECTION("Toad Oscillator") {
+            gol::Board board(10, 10);
+            setBoardAsFalse(board);
+            board[2][3] = true;
+            board[2][4] = true;
+            board[2][5] = true;
+            board[3][2] = true;
+            board[3][3] = true;
+            board[3][4] = true;
+            board.nextStep("B3/S23");
+            bool expectedBoard[10][10] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
     }
 
 }
