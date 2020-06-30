@@ -16,7 +16,7 @@ Return a random bool.
 
 Assign the return value of this function to a board cell. The board cell will either be true or false. The function requires `initRandom()` to be called once.
 
-#### Example of getRandomBool
+#### Example of getRandomBool()
 Here is an example of setting the board with randomized bool values:
 ```cpp
 #include <gol/gol.hpp>
