@@ -225,7 +225,7 @@ int main() {
 }
 ```
 
-### board.getWrap() <a name = "setWrap"></a>
+### board.getWrap() <a name = "getWrap"></a>
 
 Return the current wrap state.
 
