@@ -219,7 +219,7 @@ Here is a program that disables board wrapping:
 #include <gol/gol.hpp>
 
 int main() {
-    Board board(10, 10);
+    gol::Board board(10, 10);
     board.setWrap(false);
     // Wrapping is now disabled
 }
