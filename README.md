@@ -107,7 +107,7 @@ $ make test
 | getRandomBool         | Return a random bool                                     |
 | getBirthValues        | Return birth values from B/S notation rule string        |
 | getSurvivalValues     | Return survival values from B/S notation rule string     |
-| isValidString         | Test whether rule string is valid                        |
+| isValidRuleString     | Test whether rule string is valid                        |
 
 ### Board Member Functions
 
