@@ -67,7 +67,7 @@ The function validates the `rule_string` in lower case by making sure the follow
 * There is exactly one occurrence of the char `/`
 * The only chars that are present are `b/s123456789`
 
-If one of these conditions is met, the function returns false.
+If one of these conditions is not met, the function returns false.
 
 
 ## Board Member Functions
