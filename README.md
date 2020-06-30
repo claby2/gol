@@ -101,25 +101,25 @@ $ make test
 
 ### Functions
 
-| Function              | Use
-|-----------------------|----------------------------------------------------------|
-| initRandom            | Initialize random seed                                   |
-| getRandomBool         | Return a random bool                                     |
-| getBirthValues        | Return birth values from B/S notation rule string        |
-| getSurvivalValues     | Return survival values from B/S notation rule string     |
-| isValidRuleString     | Test whether rule string is valid                        |
+| Function                                                | Use
+|---------------------------------------------------------|------------------------------------------------------|
+| [initRandom](DOCUMENTATION.md#initRandom)               | Initialize random seed                               |
+| [getRandomBool](DOCUMENTATION.md#getRandomBool)         | Return a random bool                                 |
+| [getBirthValues](DOCUMENTATION.md#getBirthValues)       | Return birth values from B/S notation rule string    |
+| [getSurvivalValues](DOCUMENTATION.md#getSurvivalValues) | Return survival values from B/S notation rule string |
+| [isValidRuleString](DOCUMENTATION.md#isValidRuleString) | Test whether rule string is valid                    |
 
 ### Board Member Functions
 
-| Function              | Use
-|-----------------------|----------------------------------------------------------|
-| (constructor)         | Construct Game of Life board                             |
-| operator[]            | Access element                                           |
-| height                | Return the number of rows                                |
-| width                 | Return the number of columns                             |
-| countNeighborsMoore   | Return number of true cells in Moore neighborhood        |
-| countNeighborsNeumann | Return number of true cells in von Neumann neighborhood  |
-| nextStep              | Iterate to next time step                                |
-| setWrap               | Set to toggle wrapping for counting neighbors            |
-| getWrap               | Return the current wrap state                            |
-| getNeighborhoodType   | Return current neighborhood type                         |
+| Function                                                        | Use
+|-----------------------------------------------------------------|----------------------------------------------------------|
+| [(constructor)](DOCUMENTATION.md#(constructor))                 | Construct Game of Life board                             |
+| [operator[]](DOCUMENTATION.md#operator[])                       | Access element                                           |
+| [height](DOCUMENTATION.md#height)                               | Return the number of rows                                |
+| [width](DOCUMENTATION.md#width)                                 | Return the number of columns                             |
+| [countNeighborsMoore](DOCUMENTATION.md#countNeighborsMoore)     | Return number of true cells in Moore neighborhood        |
+| [countNeighborsNeumann](DOCUMENTATION.md#countNeighborsNeumann) | Return number of true cells in von Neumann neighborhood  |
+| [nextStep](DOCUMENTATION.md#nextStep)                           | Iterate to next time step                                |
+| [setWrap](DOCUMENTATION.md#setWrap)                             | Set to toggle wrapping for counting neighbors            |
+| [getWrap](DOCUMENTATION.md#getWrap)                             | Return the current wrap state                            |
+| [getNeighborhoodType](DOCUMENTATION.md#getNeighborhoodType)     | Return current neighborhood type                         |
