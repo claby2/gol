@@ -21,6 +21,16 @@ TEST_CASE("Game of Life", "[gol]") {
         board[0][1] = false;
         REQUIRE(board[0][0] == true);
         REQUIRE(board[0][1] == false);
+        try {
+            board[11][20] = true;
+        } catch(gol::BoardException& e) {
+            REQUIRE(std::string(e.what()) == "Board index out of bound");
+        }
+        try {
+            board.nextStep("not_a_valid_rule_string");
+        } catch(gol::BoardException& e) {
+            REQUIRE(std::string(e.what()) == "Given rule string is not valid");
+        }
     }
 
     SECTION("Neighborhood Type", "[neighborhood_type]") {
@@ -28,6 +38,11 @@ TEST_CASE("Game of Life", "[gol]") {
         REQUIRE(board.getNeighborhoodType() == "moore"); // "moore" is default value
         board.setNeighborhoodType("NeUmaNn");
         REQUIRE(board.getNeighborhoodType() == "neumann");
+        try {
+            board.setNeighborhoodType("not_a_valid_neighborhood_type");
+        } catch(gol::BoardException& e) {
+            REQUIRE(std::string(e.what()) == "Given neighborhood type is not valid");
+        }
     }
 
     SECTION("Wrapping State", "[wrap]") {
