@@ -19,6 +19,7 @@ Board Member Functions:
 + [setWrap](#setWrap)
 + [getWrap](#getWrap)
 + [getNeighborhoodType](#getNeighborhoodType)
++ [setFromFile](#setFromFile)
 
 
 ## Functions
@@ -268,12 +269,12 @@ Set values of board from given file.
 
 This method takes a string argument `file_path`. This file path should represent the relative location of the board file.
 
-The board file should follow a certain format, see example below.
+The board file should follow a certain format, see the example below.
 
 #### Example of board.setFromFile(file_path)
 The first two lines should contain two integers `r` and `c` representing the number of rows and columns of the board. These dimensions should be equal to the dimensions of the board (specified when it is first constructed).
 
-The next `r` lines should contain a set of characters of size `c`. The characters `-` and `0` represent dead cells. The characters `x`, `X` and `1` represent living cells. These characters can be used interchangeably.
+The next `r` lines should contain a set of characters of size `c`. The characters `-` and `0` represent dead cells. The characters `x`, `X`, and `1` represent living cells. These characters can be used interchangeably.
 
 The file also supports comments at the end of lines. Comments can use any delimiter as long as there is a whitespace between the read value and itself.
 
@@ -293,12 +294,12 @@ In your source file:
 #include <gol/gol.hpp>
 
 int main() {
-    gol::Board board(9, 5); // The dimensions specified here should be the same as in the board file
+    gol::Board board(5, 9); // The dimensions specified here should be the same as in the board file
     board.setFromFile("board_files/board_file.txt");
 }
 ```
 
-After calling the method, the board should hold these values:
+The board should hold these values after calling the method:
 ```
 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0
