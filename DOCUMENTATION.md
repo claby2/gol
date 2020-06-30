@@ -1,5 +1,26 @@
 # gol Documentation
 
+## Table of Contents
+Functions: 
++ [initRandom](#initRandom)
++ [getRandomBool](#getRandomBool)
++ [getBirthValues](#getBirthValues)
++ [getSurvivalValues](#getSurvivalValues)
++ [isValidRuleString](#isValidRuleString)
+
+Board Member Functions: 
++ [(constructor)](#(constructor))
++ [operator[]](#operator[])
++ [height](#height)
++ [width](#width)
++ [countNeighborsMoore](#countNeighborsMoore)
++ [countNeighborsNeumann](#countNeighborsNeumann)
++ [nextStep](#nextStep)
++ [setWrap](#setWrap)
++ [getWrap](#getWrap)
++ [getNeighborhoodType](#getNeighborhoodType)
+
+
 ## Functions
 
 
