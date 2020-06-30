@@ -192,12 +192,12 @@ namespace gol {
             }
 
             // Sets neighborhood type based on given string
-            void setNeighborhoodType(std::string neighboorhood_type_) {
-                std::transform(neighboorhood_type_.begin(), neighboorhood_type_.end(), neighboorhood_type_.begin(),
+            void setNeighborhoodType(std::string neighborhood_type_) {
+                std::transform(neighborhood_type_.begin(), neighborhood_type_.end(), neighborhood_type_.begin(),
                     [](unsigned char c){ return std::tolower(c); });
-                if(neighboorhood_type_ == "moore") {
+                if(neighborhood_type_ == "moore") {
                     neighborhood_type = "moore";
-                } else if(neighboorhood_type_ == "neumann") {
+                } else if(neighborhood_type_ == "neumann") {
                     neighborhood_type = "neumann";
                 } else {
                     throw BoardException("Given neighborhood type is not valid"); 
