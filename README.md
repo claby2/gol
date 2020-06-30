@@ -99,6 +99,8 @@ $ make test
 
 ## Reference
 
+[Documentation](DOCUMENTATION.md)
+
 ### Functions
 
 | Function                                                | Use
@@ -123,3 +125,4 @@ $ make test
 | [setWrap](DOCUMENTATION.md#setWrap)                             | Set to toggle wrapping for counting neighbors            |
 | [getWrap](DOCUMENTATION.md#getWrap)                             | Return the current wrap state                            |
 | [getNeighborhoodType](DOCUMENTATION.md#getNeighborhoodType)     | Return current neighborhood type                         |
+| [setFromFile](DOCUMENTATION.md#setFromFile)                     | Set values of board from given file                      |

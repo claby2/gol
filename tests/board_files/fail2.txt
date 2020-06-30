@@ -1,0 +1,8 @@
+5 # this file should fail because there are 6 rows.
+9 # there should only be 5 rows.
+-0-------
+----0----
+---Xx1--- 
+0------0-
+----0----
+--------- # this is an extra line and should trigger an exception

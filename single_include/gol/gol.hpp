@@ -2,6 +2,7 @@
 #define GOL_HPP
 
 #include <algorithm>
+#include <fstream>
 #include <stdexcept>
 #include <stdlib.h>
 #include <string>
@@ -215,6 +216,59 @@ namespace gol {
                 return neighborhood_type;
             }
 
+            // Set values of board from given file
+            // File should follow proper board file format
+            void setFromFile(std::string file_path) {
+                std::fstream file;
+                std::string line;
+                int line_number = 0;
+                int current_row = 0;
+                file.open(file_path.c_str(), std::ios::in);
+                if(!file) {
+                    throw BoardException("Given file is not valid");
+                }
+                while(std::getline(file, line)) {
+                    std::string line_content = ""; // Holds line without comments
+                    for(int i = 0; i < line.length(); i++) {
+                        if(line_number == 0 || line_number == 1) {
+                            if(numbers.find(line[i]) != std::string::npos) {
+                                line_content.push_back(line[i]);
+                            } else {
+                                break;
+                            }
+                        } else {
+                            if(cells.find(line[i]) != std::string::npos) {
+                                line_content.push_back(line[i]);
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    if(line_number < 2) {
+                        if (
+                            (line_content.empty()) || 
+                            (line_number == 0 && std::stoi(line_content) != rows) || 
+                            (line_number == 1 && std::stoi(line_content) != columns)) {
+                            throw BoardException("Given dimensions from file do not match board dimensions");
+                        }
+                    } else if(line_number >= 2 && !line_content.empty()) {
+                        current_row = line_number - 2;
+                        if(line_content.length() != columns || current_row >= rows) {
+                            throw BoardException("Given board from file does not match specified dimensions");
+                        } else {
+                            for(int i = 0; i < line_content.length(); i++) {
+                                if(line_content[i] == '-' || line_content[i] == '0') {
+                                    board[current_row * columns + i] = false;
+                                } else if(line_content[i] == 'x' || line_content[i] == 'X' || line_content[i] == '1') {
+                                    board[current_row * columns + i] = true;
+                                } 
+                            }
+                        }
+                    }
+                    line_number++;
+                }
+            }
+
 
         private:
             bool * buffer_board; // Buffer of board to separate neighbor count and update
@@ -226,6 +280,8 @@ namespace gol {
             std::string birth_values;
             std::string survival_values;
             std::string neighborhood_type = "moore";
+            std::string numbers = "123456789";
+            std::string cells = "-0xX1";
             const int dx[8] = {0, 0, 1, -1, 1, 1, -1, -1};
             const int dy[8] = {1, -1, 0, 0, 1, -1, 1, -1};
     };

@@ -1,0 +1,7 @@
+5 # this file should fail because one of the lines only has 3 columns
+9 # there should be 9 columns per row
+-0-------
+----0----
+---Xx1--- 
+0--aaaaaa # this line only has 3 valid columns
+----0----

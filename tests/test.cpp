@@ -216,4 +216,64 @@ TEST_CASE("Game of Life", "[gol]") {
         }
     }
 
+    SECTION("Set Board From File", "[set_board_from_file]") {
+        SECTION("Pass") {
+            gol::Board board(5, 9);
+            board.setFromFile("board_files/pass.txt");
+            bool expectedBoard[5][9] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
+        SECTION("Fail0") {
+            gol::Board board(5, 9);
+            try {
+                board.setFromFile("this_file_does_not_exist.txt");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given file is not valid");
+            }
+        }
+        SECTION("Fail1") {
+            gol::Board board(5, 9);
+            try {
+                board.setFromFile("board_files/fail1.txt");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given dimensions from file do not match board dimensions");
+            }
+        }
+        SECTION("Fail2") {
+            gol::Board board(5, 9);
+            try {
+                board.setFromFile("board_files/fail2.txt");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given board from file does not match specified dimensions");
+            }
+        }
+        SECTION("Fail3") {
+            gol::Board board(5, 9);
+            try {
+                board.setFromFile("board_files/fail3.txt");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given board from file does not match specified dimensions");
+            }
+        }
+        SECTION("Fail4") {
+            gol::Board board(5, 9);
+            try {
+                board.setFromFile("board_files/fail4.txt");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given dimensions from file do not match board dimensions");
+            }
+        }
+    
+    }
+
 }

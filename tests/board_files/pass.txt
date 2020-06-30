@@ -1,0 +1,9 @@
+5 # This is a comment and it should be ignored
+9
+-0-------
+----0---- 
+---Xx1--- // This comment should be ignored 123
+0------0- ; ignore this
+----0---- ignore this as well 
+
+

@@ -1,0 +1,7 @@
+-0-------
+----0----
+---Xx1--- # This comment should be ignored 123
+0------0-
+----0----
+5 # The dimensions of the board are placed below which does not follow the correct format
+9 # dimensions should be located at the top

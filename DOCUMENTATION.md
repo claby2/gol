@@ -155,7 +155,7 @@ Return the number of columns.
 The return type is size_t.
 
 
-### board.countNeighborsMoore(x, y, copy_board_to_buffer) <a name = "countNeighborsMoore"></a>
+### board.countNeighborsMoore(x, y, [copy_board_to_buffer]) <a name = "countNeighborsMoore"></a>
 
 Return number of true cells in Moore neighborhood.
 
@@ -166,7 +166,7 @@ The arguments `x` and `y` should be of type int. The arguments `x` and `y` repre
 The method takes an additional but optional argument `copy_board_to_buffer`. This is of type bool which defaults to true. If this argument is set to false, the board will not be copied to the buffer board where the counting is executed.
 
 
-### board.countNeighborsNeumann(x, y, copy_board_to_buffer) <a name = "countNeighborsNeumann"></a>
+### board.countNeighborsNeumann(x, y, [copy_board_to_buffer]) <a name = "countNeighborsNeumann"></a>
 
 Return number of true cells in von Neumann neighborhood.
 
@@ -260,3 +260,49 @@ This method returns a bool. The return value indicates whether wrapping is enabl
 Return current neighborhood type.
 
 This method returns a string representing the current neighborhood type. This can be either `"moore"` or `"neumann"` representing a [Moore neighborhood](https://en.wikipedia.org/wiki/Moore_neighborhood) or a [von Neumann neighborhood](https://en.wikipedia.org/wiki/Von_Neumann_neighborhood) respectively.
+
+
+### board.setFromFile(file_path) <a name = "setFromFile"></a>
+
+Set values of board from given file.
+
+This method takes a string argument `file_path`. This file path should represent the relative location of the board file.
+
+The board file should follow a certain format, see example below.
+
+#### Example of board.setFromFile(file_path)
+The first two lines should contain two integers `r` and `c` representing the number of rows and columns of the board. These dimensions should be equal to the dimensions of the board (specified when it is first constructed).
+
+The next `r` lines should contain a set of characters of size `c`. The characters `-` and `0` represent dead cells. The characters `x`, `X` and `1` represent living cells. These characters can be used interchangeably.
+
+The file also supports comments at the end of lines. Comments can use any delimiter as long as there is a whitespace between the read value and itself.
+
+This is a valid board file named `board_files/board_file.txt`:
+```
+5 <- this is the number of rows
+9 <- this is the number of columns
+-0-------
+----0---- 
+---Xx1---
+0------0-
+----0----
+```
+
+In your source file:
+```cpp
+#include <gol/gol.hpp>
+
+int main() {
+    gol::Board board(9, 5); // The dimensions specified here should be the same as in the board file
+    board.setFromFile("board_files/board_file.txt");
+}
+```
+
+After calling the method, the board should hold these values:
+```
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 1 1 1 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+```
