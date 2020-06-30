@@ -121,5 +121,5 @@ $ make test
 | countNeighborsNeumann | Return number of true cells in von Neumann neighborhood  |
 | nextStep              | Iterate to next time step                                |
 | setWrap               | Set to toggle wrapping for counting neighbors            |
-| getWrap               | Get the current wrap state                               |
+| getWrap               | Return the current wrap state                            |
 | getNeighborhoodType   | Return current neighborhood type                         |
