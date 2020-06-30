@@ -113,6 +113,8 @@ int main() {
     board[0][1] = true;
     if(board[0][1]) {
         std::cout << "board[0][1] is true" << '\n';
+    } else {
+        std::cout << "This will not print" << '\n';
     }
 }
 ```
@@ -132,7 +134,7 @@ Return the number of columns.
 The return type is size_t.
 
 
-### board.countNeighborsMoore(x, y) <a name = "countNeighborsMoore"></a>
+### board.countNeighborsMoore(x, y, copy_board_to_buffer) <a name = "countNeighborsMoore"></a>
 
 Return number of true cells in Moore neighborhood.
 
@@ -140,10 +142,10 @@ This method returns an int that represents the number of neighbors with a value 
 
 The arguments `x` and `y` should be of type int. The arguments `x` and `y` represents the column and row of a specified cell respectively. These use zero-based numbering.
 
-The method reads from the buffer board and not the actual board.
+The method takes an additional but optional argument `copy_board_to_buffer`. This is of type bool which defaults to true. If this argument is set to false, the board will not be copied to the buffer board where the counting is executed.
 
 
-### board.countNeighborsNeumann(x, y) <a name = "countNeighborsNeumann"></a>
+### board.countNeighborsNeumann(x, y, copy_board_to_buffer) <a name = "countNeighborsNeumann"></a>
 
 Return number of true cells in von Neumann neighborhood.
 
@@ -151,7 +153,7 @@ This method returns an int that represents the number of neighbors with a value 
 
 The arguments `x` and `y` should be of type int. The arguments `x` and `y` represents the column and row of a specified cell respectively. These use zero-based numbering.
 
-The method reads from the buffer board and not the actual board.
+The method takes an additional but optional argument `copy_board_to_buffer`. This is of type bool which defaults to true. If this argument is set to false, the board will not be copied to the buffer board where the counting is executed.
 
 
 ### board.nextStep(rule_string) <a name = "nextStep"></a>

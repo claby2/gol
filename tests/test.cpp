@@ -41,6 +41,13 @@ TEST_CASE("Game of Life", "[gol]") {
         }
     }
 
+    SECTION("Wrapping State", "[wrap]") {
+        gol::Board board(10, 20);
+        REQUIRE(board.getWrap() == true); // true is default value
+        board.setWrap(false);
+        REQUIRE(board.getWrap() == false);
+    }
+
     SECTION("Neighborhood Type", "[neighborhood_type]") {
         gol::Board board(10, 20);
         REQUIRE(board.getNeighborhoodType() == "moore"); // "moore" is default value
@@ -53,11 +60,76 @@ TEST_CASE("Game of Life", "[gol]") {
         }
     }
 
-    SECTION("Wrapping State", "[wrap]") {
-        gol::Board board(10, 20);
-        REQUIRE(board.getWrap() == true); // true is default value
-        board.setWrap(false);
-        REQUIRE(board.getWrap() == false);
+    SECTION("Neighborhood Count", "[neighborhood_count]") {
+        SECTION("Normal Neighborhood Count") {
+            gol::Board board (10, 10);
+            bool boardTemplate[10][10] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    board[i][j] = boardTemplate;
+                }
+            }
+            REQUIRE(board.countNeighborsMoore(4, 4) == 8);
+            REQUIRE(board.countNeighborsNeumann(4, 4) == 4);
+        }
+        SECTION("No Wrapping Neighborhood Count") {
+            gol::Board board (10, 10);
+            board.setWrap(false);
+            bool boardTemplate[10][10] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    board[i][j] = boardTemplate;
+                }
+            }
+            REQUIRE(board.countNeighborsMoore(4, 9) == 5);
+            REQUIRE(board.countNeighborsNeumann(4, 9) == 3);
+        }
+        SECTION("Wrapping Neighborhood Count") {
+            gol::Board board (10, 10);
+            board.setWrap(true);
+            bool boardTemplate[10][10] = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            };
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    board[i][j] = boardTemplate;
+                }
+            }
+            REQUIRE(board.countNeighborsMoore(4, 9) == 8);
+            REQUIRE(board.countNeighborsNeumann(4, 9) == 4);
+        }
+
     }
 
     SECTION("Game of Life Simulations", "[simulations]") {

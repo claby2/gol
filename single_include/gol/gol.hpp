@@ -112,7 +112,10 @@ namespace gol {
 
             // Counts neighbors as a Moore neighborhood. Eight
             // neighbors are analysed for their state.
-            int countNeighborsMoore(int x, int y) {
+            int countNeighborsMoore(int x, int y, bool copy_board_to_buffer = true) {
+                if(copy_board_to_buffer) {
+                    memcpy(buffer_board, board, rows * columns);
+                }
                 int number_of_neighbors = 0;
                 for(int i = 0; i < 8; i++) {
                     int nx = x + dx[i];
@@ -131,7 +134,10 @@ namespace gol {
 
             // Counts neighbors as a Von Neumann neighborhood. Four
             // neighbors are analysed for their state.
-            int countNeighborsNeumann(int x, int y) {
+            int countNeighborsNeumann(int x, int y, bool copy_board_to_buffer = true) {
+                if(copy_board_to_buffer) {
+                    memcpy(buffer_board, board, rows * columns);
+                }
                 int number_of_neighbors = 0;
                 for(int i = 0; i < 4; i++) {
                     int nx = x + dx[i];
@@ -163,9 +169,9 @@ namespace gol {
                     for(int j = 0; j < columns; j++) {
                         std::string number_of_neighbors;
                         if(neighborhood_type == "moore") {
-                            number_of_neighbors = std::to_string(countNeighborsMoore(j, i));
+                            number_of_neighbors = std::to_string(countNeighborsMoore(j, i, false)); // false argument to avoid recopying to buffer board
                         } else if(neighborhood_type == "neumann") {
-                            number_of_neighbors = std::to_string(countNeighborsNeumann(j, i));
+                            number_of_neighbors = std::to_string(countNeighborsNeumann(j, i, false)); // false argument to avoid recopying to buffer board
                         }
                         if(!(board[i * columns + j]) && birth_values.find(number_of_neighbors) != std::string::npos) {
                             // Dead -> Alive
