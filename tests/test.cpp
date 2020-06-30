@@ -23,4 +23,18 @@ TEST_CASE("Game of Life", "[gol]") {
         REQUIRE(board[0][1] == false);
     }
 
+    SECTION("Neighborhood Type", "[neighborhood_type]") {
+        gol::Board board(10, 20);
+        REQUIRE(board.getNeighborhoodType() == "moore"); // "moore" is default value
+        board.setNeighborhoodType("NeUmaNn");
+        REQUIRE(board.getNeighborhoodType() == "neumann");
+    }
+
+    SECTION("Wrapping State", "[wrap]") {
+        gol::Board board(10, 20);
+        REQUIRE(board.getWrap() == true); // true is default value
+        board.setWrap(false);
+        REQUIRE(board.getWrap() == false);
+    }
+
 }

@@ -117,8 +117,13 @@ namespace gol {
                 for(int i = 0; i < 8; i++) {
                     int nx = x + dx[i];
                     int ny = y + dy[i];
-                    if(nx < 0 || ny < 0) continue;
-                    if(nx >= columns || ny >= rows) continue;
+                    if(wrap) {
+                        nx = (nx + columns) % columns;
+                        ny = (ny + rows) % rows;
+                    } else {
+                        if(nx < 0 || ny < 0) continue;
+                        if(nx >= columns || ny >= rows) continue;
+                    }                        
                     if(buffer_board[ny * columns + nx]) number_of_neighbors++;
                 }
                 return number_of_neighbors;
@@ -131,8 +136,13 @@ namespace gol {
                 for(int i = 0; i < 4; i++) {
                     int nx = x + dx[i];
                     int ny = y + dy[i];
-                    if(nx < 0 || ny < 0) continue;
-                    if(nx >= columns || ny >= rows) continue;
+                    if(wrap) {
+                        nx = (nx + columns) % columns;
+                        ny = (ny + rows) % rows;
+                    } else {
+                        if(nx < 0 || ny < 0) continue;
+                        if(nx >= columns || ny >= rows) continue;
+                    }                        
                     if(buffer_board[ny * columns + nx]) number_of_neighbors++;
                 }
                 return number_of_neighbors;
@@ -144,14 +154,19 @@ namespace gol {
                     throw BoardException("Given rule string is not valid");
                 }
                 memcpy(buffer_board, board, rows * columns);
-                if(rule_string != rule_string_) { // && isValidRuleString(rule_string_)
+                if(rule_string != rule_string_) {
                     rule_string = rule_string_;
                     birth_values = getBirthValues(rule_string);
                     survival_values = getSurvivalValues(rule_string);
                 }
                 for(int i = 0; i < rows; i++) {
                     for(int j = 0; j < columns; j++) {
-                        std::string number_of_neighbors = std::to_string(countNeighborsMoore(j, i));
+                        std::string number_of_neighbors;
+                        if(neighborhood_type == "moore") {
+                            number_of_neighbors = std::to_string(countNeighborsMoore(j, i));
+                        } else if(neighborhood_type == "neumann") {
+                            number_of_neighbors = std::to_string(countNeighborsNeumann(j, i));
+                        }
                         if(!(board[i * columns + j]) && birth_values.find(number_of_neighbors) != std::string::npos) {
                             // Dead -> Alive
                             board[i * columns + j] = true;
@@ -166,14 +181,45 @@ namespace gol {
                 }
             }
 
+            // Sets wrap to user defined bool
+            void setWrap(bool wrap_) {
+                wrap = wrap_;
+            }
+
+            // Returns wrap bool
+            bool getWrap() {
+                return wrap;
+            }
+
+            // Sets neighborhood type based on given string
+            void setNeighborhoodType(std::string neighboorhood_type_) {
+                std::transform(neighboorhood_type_.begin(), neighboorhood_type_.end(), neighboorhood_type_.begin(),
+                    [](unsigned char c){ return std::tolower(c); });
+                if(neighboorhood_type_ == "moore") {
+                    neighborhood_type = "moore";
+                } else if(neighboorhood_type_ == "neumann") {
+                    neighborhood_type = "neumann";
+                } else {
+                    throw BoardException("Given neighborhood type is not valid"); 
+                }
+            }
+
+            // Returns current neighborhood type as a string
+            std::string getNeighborhoodType() {
+                return neighborhood_type;
+            }
+
+
         private:
             bool * buffer_board; // Buffer of board to separate neighbor count and update
             bool * board;
+            bool wrap = true; // Represents if neighbor counting wraps around board or not
             size_t rows;
             size_t columns;
             std::string rule_string;
             std::string birth_values;
             std::string survival_values;
+            std::string neighborhood_type = "moore";
             const int dx[8] = {0, 0, 1, -1, 1, 1, -1, -1};
             const int dy[8] = {1, -1, 0, 0, 1, -1, 1, -1};
     };
