@@ -269,6 +269,27 @@ namespace gol {
                 }
             }
 
+            // Returns the number of true elements on the board
+            int getLiveCount() {
+                int live_count = 0;
+                for(int i = 0; i < rows * columns; i++) {
+                    if(board[i] == true) {
+                        live_count++;
+                    }
+                }
+                return live_count;
+            }
+
+            // Returns the number of false elements on the board
+            int getDeadCount() {
+                int dead_count = 0;
+                for(int i = 0; i < rows * columns; i++) {
+                    if(board[i] == false) {
+                        dead_count++;
+                    }
+                }
+                return dead_count;
+            }
 
         private:
             bool * buffer_board; // Buffer of board to separate neighbor count and update

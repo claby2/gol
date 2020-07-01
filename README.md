@@ -124,3 +124,5 @@ $ make test
 | [getWrap](DOCUMENTATION.md#getWrap)                             | Return the current wrap state                            |
 | [getNeighborhoodType](DOCUMENTATION.md#getNeighborhoodType)     | Return current neighborhood type                         |
 | [setFromFile](DOCUMENTATION.md#setFromFile)                     | Set values of board from given file                      |
+| [getLiveCount](DOCUMENTATION.md#getLiveCount)                   | Return the number of true elements                       |
+| [getDeadCount](DOCUMENTATION.md#getDeadCount)                   | Return the number of false elements                      |

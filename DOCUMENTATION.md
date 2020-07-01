@@ -20,7 +20,8 @@ Board Member Functions:
 + [getWrap](#getWrap)
 + [getNeighborhoodType](#getNeighborhoodType)
 + [setFromFile](#setFromFile)
-
++ [getLiveCount](#getLiveCount)
++ [getDeadCount](#getDeadCount)
 
 ## Functions
 
@@ -307,3 +308,17 @@ The board should hold these values after calling the method:
 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0
 ```
+
+
+### board.getLiveCount() <a name = "getLiveCount></a>
+
+Return the number of true elements.
+
+This method counts the number of elements on the board that are true and returns this number as an int.
+
+
+### board.getDeadCount() <a name = "getDeadCount></a>
+
+Return the number of false elements.
+
+This method counts the number of elements on the board that are false and returns this number as an int.

@@ -281,7 +281,29 @@ TEST_CASE("Game of Life", "[gol]") {
                 REQUIRE(std::string(e.what()) == "Given board from file does not match specified dimensions");
             }
         }
-    
+    }
+
+    SECTION("Get Live and Dead Count", "[Live_and_dead_count]") {
+        gol::Board board(10, 10);
+        bool boardTemplate[10][10] = {
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        };
+        for(int i = 0; i < board.height(); i++) {
+            for(int j = 0; j < board.width(); j++) {
+                board[i][j] = boardTemplate[i][j];
+            }
+        }
+        REQUIRE(board.getLiveCount() == 10);
+        REQUIRE(board.getDeadCount() == 90);
     }
 
 }
