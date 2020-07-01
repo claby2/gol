@@ -23,6 +23,8 @@ Board Member Functions:
 + [getLiveCount](#getLiveCount)
 + [getDeadCount](#getDeadCount)
 + [setFromRLEFile](#setFromRLEFile)
++ [setRuleString](#setRuleString)
++ [getRuleString](#getRuleString)
 
 ## Functions
 
@@ -180,15 +182,13 @@ The arguments `x` and `y` should be of type int. The arguments `x` and `y` repre
 The method takes an additional but optional argument `copy_board_to_buffer`. This is of type bool which defaults to true. If this argument is set to false, the board will not be copied to the buffer board where the counting is executed.
 
 
-### board.nextStep(rule_string) <a name = "nextStep"></a>
+### board.nextStep() <a name = "nextStep"></a>
 
 Iterate to next time step.
 
-This method iterates the board by a time step. It calls the `countNeighbors*` methods for each cell and assigns it a value which is dependent on the given rule string.
+This method iterates the board by a time step. It calls the `countNeighbors*` methods for each cell and assigns it a value which is dependent on the rule string.
 
-The `rule_string` parameter specifies the rule string in [B/S notation](https://www.conwaylife.com/wiki/Rulestring#B.2FS_notation). For example, the rule string for Conway's Game of Life is `B3/S23`. The `rule_string` argument should be a string.
-
-After this method is called, the values of the board will be updated.
+After this method is called the values of the board will be updated.
 
 #### Example of board.nextStep(rule_string)
 Here is a program which prints and steps 4 times:
@@ -379,3 +379,34 @@ The board should hold these values after calling the method:
 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 ```
+
+
+### board.setRuleString(rule_string) <a name = "setRuleString"></a>
+
+Set rule string.
+
+This method takes one argument `rule_string` as a string. The rule string will take the value of `rule_string` if it is valid. Validation is done through `isValidRuleString()`. If the `rule_string` is not a valid rule string, an exception will be thrown.
+
+The `rule_string` parameter specifies the rule string in [B/S notation](https://www.conwaylife.com/wiki/Rulestring#B.2FS_notation). For example, the rule string for Conway's Game of Life is `B3/S23`. The `rule_string` argument should be a string.
+
+The default value of the rule string is equal to `"B3/S23"`. This means that calling this method is not necessary if the standard Game of Life rule string is to be used.
+
+#### Example of board.setRuleString(rule_string)
+Here is an example of setting the rule string to `B3/S1234`:
+```cpp
+#include <gol/gol.hpp>
+
+int main() {
+    gol::Board board(10, 10); // Construct Game of Life board
+    board.setRuleString("B3/S1234");
+}
+```
+
+
+### board.getRuleString() <a name = "getRuleString"></a>
+
+Return current rule string.
+
+This method returns the current rule string. 
+
+The returned rule string should be in [B/S notation](https://www.conwaylife.com/wiki/Rulestring#B.2FS_notation). For example, the rule string for Conway's Game of Life is `B3/S23`.

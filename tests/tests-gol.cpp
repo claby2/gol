@@ -12,7 +12,7 @@ void setBoardAsFalse(gol::Board &board) {
 
 TEST_CASE("Game of Life", "[gol]") {
 
-    SECTION("Rule String", "[rule_string]") {
+    SECTION("Rule String Validation", "[rule_string_validation]") {
         REQUIRE(gol::getBirthValues("B4678/S35678") == "4678");
         REQUIRE(gol::getSurvivalValues("B4678/S35678") == "35678");
         REQUIRE(gol::isValidRuleString("B123/S456789") == true);
@@ -33,11 +33,6 @@ TEST_CASE("Game of Life", "[gol]") {
         } catch(gol::BoardException& e) {
             REQUIRE(std::string(e.what()) == "Board index out of bound");
         }
-        try {
-            board.nextStep("not_a_valid_rule_string");
-        } catch(gol::BoardException& e) {
-            REQUIRE(std::string(e.what()) == "Given rule string is not valid");
-        }
     }
 
     SECTION("Wrapping State", "[wrap]") {
@@ -45,6 +40,18 @@ TEST_CASE("Game of Life", "[gol]") {
         REQUIRE(board.getWrap() == true); // true is default value
         board.setWrap(false);
         REQUIRE(board.getWrap() == false);
+    }
+
+    SECTION("Rule String Set and Get", "[rule_string]") {
+        gol::Board board(10, 20);
+        REQUIRE(board.getRuleString() == "B3/S23"); // "B3/S23" is default value
+        board.setRuleString("B3/S1234");
+        REQUIRE(board.getRuleString() == "B3/S1234");
+        try {
+            board.setRuleString("this_rule_string_does_not_exist");
+        } catch(gol::BoardException& e) {
+            REQUIRE(std::string(e.what()) == "Given rule string is not valid");
+        }
     }
 
     SECTION("Neighborhood Type", "[neighborhood_type]") {
@@ -141,7 +148,7 @@ TEST_CASE("Game of Life", "[gol]") {
             board[4][5] = true;
             board[5][4] = true;
             board[5][5] = true;
-            board.nextStep("B3/S23");
+            board.nextStep();
             bool expectedBoard[10][10] = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -166,7 +173,7 @@ TEST_CASE("Game of Life", "[gol]") {
             board[2][2] = true;
             board[2][3] = true;
             board[2][4] = true;
-            board.nextStep("B3/S23");
+            board.nextStep();
             bool expectedBoard[10][10] = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
@@ -194,7 +201,7 @@ TEST_CASE("Game of Life", "[gol]") {
             board[3][2] = true;
             board[3][3] = true;
             board[3][4] = true;
-            board.nextStep("B3/S23");
+            board.nextStep();
             bool expectedBoard[10][10] = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},

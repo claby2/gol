@@ -37,7 +37,7 @@ void printAndStep() {
         }
         std::cout << "\n";
     }
-    board.nextStep("B3/S23"); // Update with next step with rule_string B3/S23
+    board.nextStep(); // Update with next step with rule_string B3/S23
 }
 
 int main() {
@@ -127,3 +127,5 @@ $ make test
 | [getLiveCount](DOCUMENTATION.md#getLiveCount)                   | Return the number of true elements                       |
 | [getDeadCount](DOCUMENTATION.md#getDeadCount)                   | Return the number of false elements                      |
 | [setFromRLEFile](DOCUMENTATION.md#setFromRLEFile)               | Set values of board from given RLE file                  |
+| [setRuleString](DOCUMENTATION.md#setRuleString)                 | Set rule string                                          |
+| [getRuleString](DOCUMENTATION.md#getRuleString)                 | Return current rule string                               |

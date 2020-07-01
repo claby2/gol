@@ -16,6 +16,8 @@ int main() {
 
     gol::Board board(board_height, board_width);
 
+    board.setRuleString(rule_string); // Set mazectric rule string
+
     // Randomize initial board values
     for(int i = 0; i < board.height(); i++) {
         for(int j = 0; j < board.width(); j++) {
@@ -25,7 +27,7 @@ int main() {
 
     // Iterate
     for(int i = 0; i < iterations; i++) {
-        board.nextStep(rule_string);
+        board.nextStep();
     }
 
     // Print with 'O' and '.' characters representing alive and dead cells respectively

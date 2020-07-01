@@ -155,17 +155,11 @@ namespace gol {
                 return number_of_neighbors;
             }
 
-            // Iterate to the next time step with a given rule string
-            void nextStep(std::string rule_string_ = "B3/S23") {
-                if(!isValidRuleString(rule_string_)) {
-                    throw BoardException("Given rule string is not valid");
-                }
+            // Iterate to the next time step
+            void nextStep() {
                 memcpy(buffer_board, board, rows * columns);
-                if(rule_string != rule_string_) {
-                    rule_string = rule_string_;
-                    birth_values = getBirthValues(rule_string);
-                    survival_values = getSurvivalValues(rule_string);
-                }
+                birth_values = getBirthValues(rule_string);
+                survival_values = getSurvivalValues(rule_string);
                 for(int i = 0; i < rows; i++) {
                     for(int j = 0; j < columns; j++) {
                         std::string number_of_neighbors;
@@ -403,13 +397,27 @@ namespace gol {
                 return dead_count;
             }
 
+            // Sets the rule string from given string in B/S notation
+            // Includes validation
+            void setRuleString(std::string rule_string_) {
+                if(!isValidRuleString(rule_string)) {
+                    throw BoardException("Given rule string is not valid");
+                }
+                rule_string = rule_string_;
+            }
+
+            // Returns current rule string
+            std::string getRuleString() {
+                return rule_string;
+            }
+
         private:
             bool * buffer_board; // Buffer of board to separate neighbor count and update
             bool * board;
             bool wrap = true; // Represents if neighbor counting wraps around board or not
             size_t rows;
             size_t columns;
-            std::string rule_string;
+            std::string rule_string = "B3/S23";
             std::string birth_values;
             std::string survival_values;
             std::string neighborhood_type = "moore";
