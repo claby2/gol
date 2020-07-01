@@ -231,13 +231,13 @@ namespace gol {
                     std::string line_content = ""; // Holds line without comments
                     for(int i = 0; i < line.length(); i++) {
                         if(line_number == 0 || line_number == 1) {
-                            if(numbers.find(line[i]) != std::string::npos) {
+                            if(number_characters.find(line[i]) != std::string::npos) {
                                 line_content.push_back(line[i]);
                             } else {
                                 break;
                             }
                         } else {
-                            if(cells.find(line[i]) != std::string::npos) {
+                            if(live_cell_characters.find(line[i]) != std::string::npos || dead_cell_characters.find(line[i]) != std::string::npos) {
                                 line_content.push_back(line[i]);
                             } else {
                                 break;
@@ -257,9 +257,9 @@ namespace gol {
                             throw BoardException("Given board from file does not match specified dimensions");
                         } else {
                             for(int i = 0; i < line_content.length(); i++) {
-                                if(line_content[i] == '-' || line_content[i] == '0' || line_content[i] == '.') {
+                                if(dead_cell_characters.find(line[i]) != std::string::npos) {
                                     board[current_row * columns + i] = false;
-                                } else if(line_content[i] == 'x' || line_content[i] == 'X' || line_content[i] == '1' || line_content[i] == 'o' || line_content[i] == 'O') {
+                                } else if(live_cell_characters.find(line[i]) != std::string::npos) {
                                     board[current_row * columns + i] = true;
                                 } 
                             }
@@ -301,8 +301,9 @@ namespace gol {
             std::string birth_values;
             std::string survival_values;
             std::string neighborhood_type = "moore";
-            std::string numbers = "123456789";
-            std::string cells = ".-0xX1oO";
+            std::string number_characters = "123456789";
+            std::string dead_cell_characters = ".-0";
+            std::string live_cell_characters = "xX1oO";
             const int dx[8] = {0, 0, 1, -1, 1, 1, -1, -1};
             const int dy[8] = {1, -1, 0, 0, 1, -1, 1, -1};
     };
