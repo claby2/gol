@@ -329,7 +329,7 @@ This method counts the number of elements on the board that are false and return
 
 Set values of board from given RLE file.
 
-This method takes a string argument `file_path`. This file path should represent the relative location of the [RLE file](https://www.conwaylife.com/wiki/Run_Length_Encoded). The method converts the contents to lower case and strips whitespace. Furthermore, if a `<tag>` in the file holds a value of `b` it is considered dead; If a `<tag>` holds a value that is not `b`, it assumes that it is an alive cell. This is because the method only supports two states: a cell can only be either alive or dead.
+This method takes a string argument `file_path`. This file path should represent the relative location of the [RLE file](https://www.conwaylife.com/wiki/Run_Length_Encoded). The method converts the contents of the RLE file to lower case and strips whitespace. If a `<tag>` in the file holds a value of `b`, it is considered dead; if a `<tag>` holds a value that is not `b`, it assumes that it is an alive cell. This is because the method only supports two states: a cell can only be either alive or dead.
 
 The board file should follow the RLE format, see the example below.
 
@@ -353,7 +353,7 @@ In your source file:
 #include <gol/gol.hpp>
 
 int main() {
-    gol::Board board(5, 9); // The dimensions specified here should be the same as in the board file
+    gol::Board board(18, 29); // The dimensions specified here should be the same as in the board file
     board.setFromRLEFile("rle_files/dragon.rle");
 }
 ```
