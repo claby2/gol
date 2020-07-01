@@ -316,6 +316,30 @@ TEST_CASE("Game of Life", "[gol]") {
                 }
             }
         }
+        SECTION("Fail1 RLE") {
+            gol::Board board(42, 42);
+            try {
+                board.setFromRLEFile("tests/rle_files/fail1.rle");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given dimensions from file do not match board dimensions");
+            }
+        }
+        SECTION("Fail2 RLE") {
+            gol::Board board(42, 42);
+            try {
+                board.setFromRLEFile("tests/rle_files/fail2.rle");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given rule string from file is not valid");
+            }
+        }
+        SECTION("Fail3 RLE") {
+            gol::Board board(42, 42);
+            try {
+                board.setFromRLEFile("tests/rle_files/fail3.rle");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given board from file does not match specified dimensions");
+            }
+        }
     }
 
     SECTION("Get Live and Dead Count", "[Live_and_dead_count]") {
