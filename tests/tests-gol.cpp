@@ -1,4 +1,3 @@
-#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 
 #include "../single_include/gol/gol.hpp"
@@ -305,5 +304,4 @@ TEST_CASE("Game of Life", "[gol]") {
         REQUIRE(board.getLiveCount() == 10);
         REQUIRE(board.getDeadCount() == 90);
     }
-
 }
