@@ -282,6 +282,42 @@ TEST_CASE("Game of Life", "[gol]") {
         }
     }
 
+    SECTION("Set Board From RLE File", "[set_board_from_rle_file]") {
+        SECTION("Dragon RLE") {
+            gol::Board expectedBoard(18, 29);
+            expectedBoard.setFromFile("tests/rle_files/dragon.txt");
+            gol::Board board(18, 29);
+            board.setFromRLEFile("tests/rle_files/dragon.rle");
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
+        SECTION("Blinker RLE") {
+            gol::Board expectedBoard(1, 3);
+            expectedBoard.setFromFile("tests/rle_files/blinker.txt");
+            gol::Board board(1, 3);
+            board.setFromRLEFile("tests/rle_files/blinker.rle");
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
+        SECTION("60P312 RLE") {
+            gol::Board expectedBoard(42, 42);
+            expectedBoard.setFromFile("tests/rle_files/60P312.txt");
+            gol::Board board(42, 42);
+            board.setFromRLEFile("tests/rle_files/60P312.rle");
+            for(int i = 0; i < board.height(); i++) {
+                for(int j = 0; j < board.width(); j++) {
+                    REQUIRE(board[i][j] == expectedBoard[i][j]);
+                }
+            }
+        }
+    }
+
     SECTION("Get Live and Dead Count", "[Live_and_dead_count]") {
         gol::Board board(10, 10);
         bool boardTemplate[10][10] = {

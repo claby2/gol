@@ -5,6 +5,8 @@ else
 	executable = ./tests
 endif
 
+.PHONY: test-compile test test-all example-compile
+
 test-compile:
 ifeq (,$(wildcard ./tests/tests-main.o))
 	$(info Compiling tests-main.cpp, this only needs to be done once.)
@@ -25,4 +27,4 @@ example-compile:
 	@g++ ./example/pentadecathlon_oscillator.cpp  -o ./example/pentadecathlon_oscillator
 	@g++ ./example/60P312_oscillator.cpp          -o ./example/60P312_oscillator
 	
-	@g++ ./example/randomized_board.cpp   -o ./example/randomized_board
+	@g++ ./example/randomized_board.cpp           -o ./example/randomized_board

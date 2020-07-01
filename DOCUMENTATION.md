@@ -22,6 +22,7 @@ Board Member Functions:
 + [setFromFile](#setFromFile)
 + [getLiveCount](#getLiveCount)
 + [getDeadCount](#getDeadCount)
++ [setFromRLEFile](#setFromRLEFile)
 
 ## Functions
 
@@ -322,3 +323,59 @@ This method counts the number of elements on the board that are true and returns
 Return the number of false elements.
 
 This method counts the number of elements on the board that are false and returns this number as an int.
+
+
+### board.setFromRLEFile() <a name = "setFromRLEFile></a>
+
+Set values of board from given RLE file.
+
+This method takes a string argument `file_path`. This file path should represent the relative location of the [RLE file](https://www.conwaylife.com/wiki/Run_Length_Encoded). The method converts the contents to lower case and strips whitespace. Furthermore, if a `<tag>` in the file holds a value of `b` it is considered dead; If a `<tag>` holds a value that is not `b`, it assumes that it is an alive cell. This is because the method only supports two states: a cell can only be either alive or dead.
+
+The board file should follow the RLE format, see the example below.
+
+#### Example of board.setFromRLEFile()
+
+This is a valid RLE file named `rle_files/dragon.rle`:
+```
+#N Dragon
+#O Paul Tooke
+#C An orthogonal period 6 spaceship. The first c/6 spaceship to be constructed.
+#C www.conwaylife.com/wiki/index.php?title=Dragon
+x = 29, y = 18, rule = B3/S23
+12bo16b$12b2o14bo$10bob2o5bobo4b2ob$5bo3bo3b3o2bo4bo5b$2o3bo2bo6bobo5b
+3o2bo$2o3bob2o6bo3bobobo5b$2o3bo10bobo7b2ob$5b2o14bo6bo$7bo12bobo6b$7b
+o12bobo6b$5b2o14bo6bo$2o3bo10bobo7b2ob$2o3bob2o6bo3bobobo5b$2o3bo2bo6b
+obo5b3o2bo$5bo3bo3b3o2bo4bo5b$10bob2o5bobo4b2ob$12b2o14bo$12bo!
+```
+
+In your source file:
+```cpp
+#include <gol/gol.hpp>
+
+int main() {
+    gol::Board board(5, 9); // The dimensions specified here should be the same as in the board file
+    board.setFromRLEFile("rle_files/dragon.rle");
+}
+```
+
+The board should hold these values after calling the method:
+```
+0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0 
+0 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 1 0 0 0 0 0 
+1 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 1 
+1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0 0 
+1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 1 1 0 
+0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 
+0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 1 1 0 
+1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0 0 
+1 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 1 
+0 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+```

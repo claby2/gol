@@ -269,6 +269,118 @@ namespace gol {
                 }
             }
 
+            // Set values of board from given RLE file
+            // File should follow proper RLE file format
+            void setFromRLEFile(std::string file_path) {
+                std::fstream file;
+                std::string line;
+                std::string board_string;     // Composite of the lines that represent the board
+                int line_number = 0;
+                bool reading_number = false;  // Represents if <run_count> number is currently being recorded
+                std::string current_number;   // Current <run_count> number being read
+                int current_row = 0;
+                int current_column = 0;
+                file.open(file_path.c_str(), std::ios::in);
+                if(!file) {
+                    throw BoardException("Given file is not valid");
+                }
+                while(std::getline(file, line)) {
+                    line.erase(remove(line.begin(),line.end(),' '),line.end()); // Remove whitespace
+                    std::transform(line.begin(), line.end(), line.begin(),
+                        [](unsigned char c){ return std::tolower(c); }); // Transform to lower case
+                    if(line[0] != '#') {
+                        if(line_number == 0) {
+                            bool reading_x = false;     // Represents if currently reading x property
+                            bool reading_y = false;     // Represents if currently reading y property
+                            bool reading_rule = false;  // Represents if currently reading rule property
+                            std::string x;              // Holds x property
+                            std::string y;              // Holds y property
+                            std::string rule;           // Holds rule string
+                            for(int i = 0; i < line.length(); i++) {
+                                if(line[i] == 'x') {
+                                    reading_x = true;
+                                    reading_y = false;
+                                    reading_rule = false;
+                                } else if(line[i] == 'y') {
+                                    reading_x = false;
+                                    reading_y = true;
+                                    reading_rule = false;
+                                } else if(line[i] == 'r') {
+                                    reading_x = false;
+                                    reading_y = false;
+                                    reading_rule = true;
+                                }
+                                if(reading_x && number_characters.find(line[i]) != std::string::npos) {
+                                    x.push_back(line[i]);
+                                } else if(reading_y && number_characters.find(line[i]) != std::string::npos) {
+                                    y.push_back(line[i]);
+                                } else if(reading_rule && valid_rule_string_characters.find(line[i]) != std::string::npos) {
+                                    rule.push_back(line[i]);
+                                }
+                            }
+                            if (
+                                (x.empty() || y.empty()) ||
+                                (std::stoi(x) != columns) || 
+                                (std::stoi(y) != rows)) {
+                                throw BoardException("Given dimensions from file do not match board dimensions");
+                            } else if(!isValidRuleString(rule)) {
+                                throw BoardException("Given rule string from file is not valid");
+                            }
+                        } else {
+                            board_string += line;
+                        }
+                        line_number++;
+                    }
+                }
+                for(int i = 0; i < rows * columns; i++) {
+                    board[i] = false; // Naively assume all values are false
+                }
+                for(int i = 0; i < board_string.length(); i++) {
+                    if(board_string[i] == '$') {
+                        if(reading_number) {
+                            // Skip multiple lines
+                            current_row += std::stoi(current_number);
+                        } else {
+                            current_row++;
+                        }
+                        current_column = 0;
+                        reading_number = false;
+                        current_number = "";
+                        if(current_row >= rows) {
+                            throw BoardException("Given board from file does not match specified dimensions");
+                        }
+                    } else if(number_characters.find(board_string[i]) != std::string::npos) {
+                        reading_number = true;
+                        current_number.push_back(board_string[i]);
+                    } else if(board_string[i] != '!') { // Exception: '!'. This character concludes the board
+                        bool cell_state;
+                        if(board_string[i] == 'b') { // Dead cell
+                            cell_state = false;
+                        } else { // Alive cell
+                            //  RLE readers that cannot handle more than two states 
+                            // should treat all letters other than b (and perhaps B) 
+                            // as equivalent to o. 
+                            cell_state = true;
+                        }
+                        if(reading_number) {
+                            std::fill(
+                                &board[current_row * columns + current_column], 
+                                &board[current_row * columns + current_column] + std::stoi(current_number),
+                                cell_state
+                            );
+                            current_column += std::stoi(current_number);
+                        } else {
+                            board[current_row * columns + current_column] = cell_state;
+                            current_column++;
+                        }
+                        reading_number = false;
+                        current_number = "";
+                    } else {
+                        break;
+                    }
+                }
+            }
+
             // Returns the number of true elements on the board
             int getLiveCount() {
                 int live_count = 0;
@@ -301,9 +413,10 @@ namespace gol {
             std::string birth_values;
             std::string survival_values;
             std::string neighborhood_type = "moore";
-            std::string number_characters = "123456789";
+            std::string number_characters = "1234567890";
             std::string dead_cell_characters = ".-0";
             std::string live_cell_characters = "xX1oO";
+            std::string valid_rule_string_characters = "b/s123456789";
             const int dx[8] = {0, 0, 1, -1, 1, 1, -1, -1};
             const int dy[8] = {1, -1, 0, 0, 1, -1, 1, -1};
     };

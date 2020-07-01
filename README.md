@@ -126,3 +126,4 @@ $ make test
 | [setFromFile](DOCUMENTATION.md#setFromFile)                     | Set values of board from given file                      |
 | [getLiveCount](DOCUMENTATION.md#getLiveCount)                   | Return the number of true elements                       |
 | [getDeadCount](DOCUMENTATION.md#getDeadCount)                   | Return the number of false elements                      |
+| [setFromRLEFile](DOCUMENTATION.md#setFromRLEFile)               | Set values of board from given RLE file                  |
