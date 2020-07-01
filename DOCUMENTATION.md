@@ -325,7 +325,7 @@ Return the number of false elements.
 This method counts the number of elements on the board that are false and returns this number as an int.
 
 
-### board.setFromRLEFile() <a name = "setFromRLEFile></a>
+### board.setFromRLEFile() <a name = "setFromRLEFile"></a>
 
 Set values of board from given RLE file.
 
