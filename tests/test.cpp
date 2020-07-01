@@ -273,6 +273,14 @@ TEST_CASE("Game of Life", "[gol]") {
                 REQUIRE(std::string(e.what()) == "Given dimensions from file do not match board dimensions");
             }
         }
+        SECTION("Fail5") {
+            gol::Board board(5, 9);
+            try {
+                board.setFromFile("tests/board_files/fail5.txt");
+            } catch(gol::BoardException& e) {
+                REQUIRE(std::string(e.what()) == "Given board from file does not match specified dimensions");
+            }
+        }
     
     }
 

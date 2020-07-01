@@ -1,0 +1,6 @@
+5 # this file should fail because there are only 4 rows 
+9 # there should be 5 rows
+--------- # 1
+--------- # 2
+--------- # 3
+--------- # 4
