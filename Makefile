@@ -28,3 +28,5 @@ example-compile:
 	@g++ ./example/60P312_oscillator.cpp          -o ./example/60P312_oscillator
 	
 	@g++ ./example/randomized_board.cpp           -o ./example/randomized_board
+
+	@g++ ./example/mazectric.cpp                  -o ./example/mazectric
