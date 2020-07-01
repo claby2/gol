@@ -275,7 +275,7 @@ The board file should follow a certain format, see the example below.
 #### Example of board.setFromFile(file_path)
 The first two lines should contain two integers `r` and `c` representing the number of rows and columns of the board. These dimensions should be equal to the dimensions of the board (specified when it is first constructed).
 
-The next `r` lines should contain a set of characters of size `c`. The characters `-` and `0` represent dead cells. The characters `x`, `X`, and `1` represent living cells. These characters can be used interchangeably.
+The next `r` lines should contain a set of characters of size `c`. The characters `-`, `0`, and `.` represent dead cells. The characters `x`, `X`, `1`, `o`, and `O` represent living cells. These characters can be used interchangeably.
 
 The file also supports comments at the end of lines. Comments can use any delimiter as long as there is a whitespace between the read value and itself.
 

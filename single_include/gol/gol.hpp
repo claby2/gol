@@ -257,9 +257,9 @@ namespace gol {
                             throw BoardException("Given board from file does not match specified dimensions");
                         } else {
                             for(int i = 0; i < line_content.length(); i++) {
-                                if(line_content[i] == '-' || line_content[i] == '0') {
+                                if(line_content[i] == '-' || line_content[i] == '0' || line_content[i] == '.') {
                                     board[current_row * columns + i] = false;
-                                } else if(line_content[i] == 'x' || line_content[i] == 'X' || line_content[i] == '1') {
+                                } else if(line_content[i] == 'x' || line_content[i] == 'X' || line_content[i] == '1' || line_content[i] == 'o' || line_content[i] == 'O') {
                                     board[current_row * columns + i] = true;
                                 } 
                             }
@@ -302,7 +302,7 @@ namespace gol {
             std::string survival_values;
             std::string neighborhood_type = "moore";
             std::string numbers = "123456789";
-            std::string cells = "-0xX1";
+            std::string cells = ".-0xX1oO";
             const int dx[8] = {0, 0, 1, -1, 1, 1, -1, -1};
             const int dy[8] = {1, -1, 0, 0, 1, -1, 1, -1};
     };
