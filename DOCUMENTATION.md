@@ -310,14 +310,14 @@ The board should hold these values after calling the method:
 ```
 
 
-### board.getLiveCount() <a name = "getLiveCount></a>
+### board.getLiveCount() <a name = "getLiveCount"></a>
 
 Return the number of true elements.
 
 This method counts the number of elements on the board that are true and returns this number as an int.
 
 
-### board.getDeadCount() <a name = "getDeadCount></a>
+### board.getDeadCount() <a name = "getDeadCount"></a>
 
 Return the number of false elements.
 
