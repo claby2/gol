@@ -349,7 +349,7 @@ TEST_CASE("Game of Life", "[gol]") {
         }
     }
 
-    SECTION("Get Live and Dead Count", "[Live_and_dead_count]") {
+    SECTION("Get Live and Dead Count", "[live_and_dead_count]") {
         gol::Board board(10, 10);
         bool boardTemplate[10][10] = {
             {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
