@@ -1,3 +1,5 @@
 .vscode
 *.exe
 *.o
+*_written.txt
+*_written.rle

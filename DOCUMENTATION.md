@@ -25,6 +25,8 @@ Board Member Functions:
 + [setFromRLEFile](#setFromRLEFile)
 + [setRuleString](#setRuleString)
 + [getRuleString](#getRuleString)
++ [saveAsFile](#saveAsFile)
++ [saveAsRLEFile](#saveAsRLEFile)
 
 ## Functions
 
@@ -410,3 +412,116 @@ Return current rule string.
 This method returns the current rule string. 
 
 The returned rule string should be in [B/S notation](https://www.conwaylife.com/wiki/Rulestring#B.2FS_notation). For example, the rule string for Conway's Game of Life is `B3/S23`.
+
+
+### board.saveAsFile(file_path) <a name = "saveAsFile"></a>
+
+Save board as file.
+
+This method takes one argument `file_path` and writes the contents of the board (including its dimensions) to a file. The `file_path` argument should be a string and represent the path to the file to be written. If the file does not exist, a new file will be created. This file format can be read with the method `board.setFromFile(file_path)`.  
+
+#### Example of board.saveAsFile(file_path)
+This example reads a file in `.rle` file format and outputs a `.txt` file from it.
+`dragon.rle`:
+```
+#N Dragon
+#O Paul Tooke
+#C An orthogonal period 6 spaceship. The first c/6 spaceship to be constructed.
+#C www.conwaylife.com/wiki/index.php?title=Dragon
+x = 29, y = 18, rule = B3/S23
+12bo16b$12b2o14bo$10bob2o5bobo4b2ob$5bo3bo3b3o2bo4bo5b$2o3bo2bo6bobo5b
+3o2bo$2o3bob2o6bo3bobobo5b$2o3bo10bobo7b2ob$5b2o14bo6bo$7bo12bobo6b$7b
+o12bobo6b$5b2o14bo6bo$2o3bo10bobo7b2ob$2o3bob2o6bo3bobobo5b$2o3bo2bo6b
+obo5b3o2bo$5bo3bo3b3o2bo4bo5b$10bob2o5bobo4b2ob$12b2o14bo$12bo!
+```
+
+Your source file:
+```cpp
+#include <gol/gol.hpp>
+
+int main() {
+    gol::Board board(18, 29); // Construct Game of Life board
+    board.setFromRLEFile("dragon.rle"); // Read as RLE file
+    board.saveAsFile("output.txt"); // Output and save as .txt file
+}
+```
+
+`output.txt`:
+```
+18
+29
+............O................
+............OO..............O
+..........O.OO.....O.O....OO.
+.....O...O...OOO..O....O.....
+OO...O..O......O.O.....OOO..O
+OO...O.OO......O...O.O.O.....
+OO...O..........O.O.......OO.
+.....OO..............O......O
+.......O............O.O......
+.......O............O.O......
+.....OO..............O......O
+OO...O..........O.O.......OO.
+OO...O.OO......O...O.O.O.....
+OO...O..O......O.O.....OOO..O
+.....O...O...OOO..O....O.....
+..........O.OO.....O.O....OO.
+............OO..............O
+............O................
+
+```
+
+
+### board.saveAsRLEFile(file_path) <a name = "saveAsRLEFile"></a>
+
+Save board as RLE file.
+
+This method takes one argument `file_path` and writes the contents of the board (including its dimensions and rule string) to a file in [RLE format](https://www.conwaylife.com/wiki/Run_Length_Encoded). The `file_path` argument should be a string and represent the path to the RLE file to be written. If the RLE file does not exist, a new file will be created. This RLE file format can be read with the method `board.setFromRLEFile(file_path)`.  
+
+Although it is valid to omit some segments of the board, such as dead cells at the end of a pattern line, the file from this method represents all cells. However, the file should still be able to read `.rle` files regardless if expected segments are omitted. 
+
+#### Example of board.saveAsRLEFile(file_path)
+This example reads a `.txt` file and outputs an `RLE` file from it.
+`dragon.txt`:
+```
+18
+29
+............O................
+............OO..............O
+..........O.OO.....O.O....OO.
+.....O...O...OOO..O....O.....
+OO...O..O......O.O.....OOO..O
+OO...O.OO......O...O.O.O.....
+OO...O..........O.O.......OO.
+.....OO..............O......O
+.......O............O.O......
+.......O............O.O......
+.....OO..............O......O
+OO...O..........O.O.......OO.
+OO...O.OO......O...O.O.O.....
+OO...O..O......O.O.....OOO..O
+.....O...O...OOO..O....O.....
+..........O.OO.....O.O....OO.
+............OO..............O
+............O................
+```
+
+Your source file:
+```cpp
+#include <gol/gol.hpp>
+
+int main() {
+    gol::Board board(18, 29); // Construct Game of Life board
+    board.setFromFile("dragon.txt"); // Read as .txt file
+    board.saveAsRLEFile("output.rle"); // Output and save as .rle file
+}
+```
+
+`output.rle`:
+```
+x = 29, y = 18, rule = B3/S23
+12bo16b$12b2o14bo$10bob2o5bobo4b2ob$5bo3bo3b3o2bo4bo5b$2o3bo2bo6bobo5b
+3o2bo$2o3bob2o6bo3bobobo5b$2o3bo10bobo7b2ob$5b2o14bo6bo$7bo12bobo6b$7b
+o12bobo6b$5b2o14bo6bo$2o3bo10bobo7b2ob$2o3bob2o6bo3bobobo5b$2o3bo2bo6b
+obo5b3o2bo$5bo3bo3b3o2bo4bo5b$10bob2o5bobo4b2ob$12b2o14bo$12bo16b!
+```

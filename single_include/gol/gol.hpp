@@ -375,6 +375,95 @@ namespace gol {
                 }
             }
 
+            // Save the board as a file
+            void saveAsFile(std::string file_path) {
+                std::fstream file;
+                file.open(file_path.c_str(), std::ios::out);
+                file << rows << '\n';
+                file << columns << '\n';
+                for(int i = 0; i < rows; i++) {
+                    for(int j = 0; j < columns; j++) {
+                        if(board[i * columns + j]) {
+                            file << 'O';
+                        } else {
+                            file << '.';
+                        }
+                    }
+                    file << '\n';
+                }
+            }
+
+            // Save the board as a file in RLE format
+            void saveAsRLEFile(std::string file_path) {
+                std::fstream file;
+                file.open(file_path.c_str(), std::ios::out);
+                std::string board_string;
+                std::string current_board_line;
+                std::string header;
+                std::string x_header = "x = " + std::to_string(columns);
+                std::string y_header = "y = " + std::to_string(rows);
+                std::string rule_header = "rule = " + rule_string;
+                header += (x_header + ", " + y_header + ", " + rule_header);
+                file << header << '\n';
+                for(int i = 0; i < rows; i++) {
+                    int dead_cell_streak = 0;
+                    int live_cell_streak = 0;
+                    for(int j = 0; j < columns; j++) {
+                        if(!board[i * columns + j]) {
+                            if(live_cell_streak > 1) {
+                                board_string += std::to_string(live_cell_streak) + 'o';
+                                live_cell_streak = 0;
+                            } else if(live_cell_streak == 1) {
+                                board_string += 'o';
+                                live_cell_streak = 0;
+                            }
+                            dead_cell_streak++;
+                        } else {
+                            if(dead_cell_streak > 1) {
+                                board_string += std::to_string(dead_cell_streak) + 'b';
+                                dead_cell_streak = 0;
+                            } else if(dead_cell_streak == 1) {
+                                board_string += 'b';
+                                dead_cell_streak = 0;
+                            }
+                            live_cell_streak++;
+                        }
+                    }
+                    if(live_cell_streak > 1) {
+                        board_string += std::to_string(live_cell_streak) + 'o';
+                        live_cell_streak = 0;
+                    } else if(live_cell_streak == 1) {
+                        board_string += 'o';
+                        live_cell_streak = 0;
+                    } else if(dead_cell_streak > 1) {
+                        board_string += std::to_string(dead_cell_streak) + 'b';
+                        dead_cell_streak = 0;
+                    } else if(dead_cell_streak == 1) {
+                        board_string += 'b';
+                        dead_cell_streak = 0;
+                    }
+                    if(i + 1 == rows) {
+                        // Terminating character
+                        board_string.push_back('!');
+                    } else {
+                        board_string.push_back('$');
+                    }
+                    
+                }
+                for(int i = 0; i < board_string.length(); i++) {
+                    current_board_line.push_back(board_string[i]);
+                    if(current_board_line.length() >= 70) {
+                        // Lines in the RLE file must not exceed 70 characters
+                        file << current_board_line << '\n';
+                        current_board_line = "";
+                    }
+                }
+                if(current_board_line.length() > 0) {
+                    // Line does not exceed 70 characters, write to file anyway as it is the last line
+                    file << current_board_line << '\n';
+                }
+            }
+
             // Returns the number of true elements on the board
             int getLiveCount() {
                 int live_count = 0;

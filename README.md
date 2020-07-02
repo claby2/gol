@@ -129,3 +129,5 @@ $ make test
 | [setFromRLEFile](DOCUMENTATION.md#setFromRLEFile)               | Set values of board from given RLE file                  |
 | [setRuleString](DOCUMENTATION.md#setRuleString)                 | Set rule string                                          |
 | [getRuleString](DOCUMENTATION.md#getRuleString)                 | Return current rule string                               |
+| [saveAsFile](DOCUMENTATION.md#saveAsFile)                       | Save board as file                                       |
+| [saveAsRLEFile](DOCUMENTATION.md#saveAsRLEFile)                 | Save board as RLE file                                   |
