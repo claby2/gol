@@ -1,14 +1,17 @@
 # gol Documentation
 
 ## Table of Contents
-Functions: 
+
+Functions:
+
 + [initRandom](#initRandom)
 + [getRandomBool](#getRandomBool)
 + [getBirthValues](#getBirthValues)
 + [getSurvivalValues](#getSurvivalValues)
 + [isValidRuleString](#isValidRuleString)
 
-Board Member Functions: 
+Board Member Functions:
+
 + [(constructor)](#(constructor))
 + [operator[]](#operator[])
 + [height](#height)
@@ -30,13 +33,11 @@ Board Member Functions:
 
 ## Functions
 
-
 ### initRandom() <a name = "initRandom"></a>
 
 Initialize random seed.
 
 Call this function in main and call it once to use random functions such as `getRandomBool()` .
-
 
 ### getRandomBool() <a name = "getRandomBool"></a>
 
@@ -46,6 +47,7 @@ Assign the return value of this function to a board cell. The board cell will ei
 
 #### Example of getRandomBool()
 Here is an example of setting the board with randomized bool values:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -62,7 +64,6 @@ int main() {
 }
 ```
 
-
 ### getBirthValues(rule_string) <a name = "getBirthValues"></a>
 
 Return birth values from B/S notation rule string.
@@ -71,15 +72,13 @@ The `rule_string` parameter specifies the rule string in [B/S notation](https://
 
 The function parses the given rule string and returns the birth values as a string. 
 
-
 ### getSurvivalValues(rule_string) <a name = "getSurvivalValues"></a>
 
 Return survival values from B/S notation rule string.
 
 The `rule_string` parameter specifies the rule string in [B/S notation](https://www.conwaylife.com/wiki/Rulestring#B.2FS_notation). For example, the rule string for Conway's Game of Life is `B3/S23`. The `rule_string` argument should be a string.
 
-The function parses the given rule string and returns the survival values as a string. 
-
+The function parses the given rule string and returns the survival values as a string.
 
 ### isValidRuleString(rule_string) <a name = "isValidRuleString"></a>
 
@@ -90,29 +89,30 @@ The `rule_string` parameter specifies the rule string in [B/S notation](https://
 The function returns a bool. If it returns true, it means the `rule_string` argument is valid.
 
 The function validates the `rule_string` in lower case by making sure the following conditions are met:
-* There is exactly one occurrence of the char `b`
-* There is exactly one occurrence of the char `s`
-* There is exactly one occurrence of the char `/`
-* The only chars that are present are `b/s123456789`
+
++ There is exactly one occurrence of the char `b`
++ There is exactly one occurrence of the char `s`
++ There is exactly one occurrence of the char `/`
++ The only chars that are present are `b/s123456789`
 
 If one of these conditions is not met, the function returns false.
 
-
 ## Board Member Functions
-
 
 ### (constructor) <a name = "(constructor)"></a>
 
 Construct Game of Life board.
 
 The board needs to be constructed before using member functions. The dimensions of the board are required to construct the board. As a result, it takes two arguments:
-* The number of `rows` as a size_t
-* The number of `columns` as a size_t
+
++ The number of `rows` as a size_t
++ The number of `columns` as a size_t
 
 The constructor also initializes the buffer board.
 
 #### Example of (constructor)
 Here is an example of constructing the board with 5 rows and 10 columns:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -120,7 +120,6 @@ int main() {
     gol::Board board(5, 10); // Construct Game of Life board
 }
 ```
-
 
 ### operator[n] <a name = "operator[]"></a>
 
@@ -131,7 +130,9 @@ Operator overload to access elements of the board. Although the board is stored 
 The operator takes an argument `n` indicating the position of an element on the board. This uses zero-based numbering.
 
 #### Example of operator[n]
+
 Here is an example of accessing elements:
+
 ```cpp
 #include <gol/gol.hpp>
 #include <iostream>
@@ -147,20 +148,17 @@ int main() {
 }
 ```
 
-
 ### board.height() <a name = "height"></a>
 
 Return the number of rows.
 
 The return type is size_t.
 
-
 ### board.width() <a name = "width"></a>
 
 Return the number of columns.
 
 The return type is size_t.
-
 
 ### board.countNeighborsMoore(x, y, [copy_board_to_buffer]) <a name = "countNeighborsMoore"></a>
 
@@ -172,7 +170,6 @@ The arguments `x` and `y` should be of type int. The arguments `x` and `y` repre
 
 The method takes an additional but optional argument `copy_board_to_buffer`. This is of type bool which defaults to true. If this argument is set to false, the board will not be copied to the buffer board where the counting is executed.
 
-
 ### board.countNeighborsNeumann(x, y, [copy_board_to_buffer]) <a name = "countNeighborsNeumann"></a>
 
 Return number of true cells in von Neumann neighborhood.
@@ -183,7 +180,6 @@ The arguments `x` and `y` should be of type int. The arguments `x` and `y` repre
 
 The method takes an additional but optional argument `copy_board_to_buffer`. This is of type bool which defaults to true. If this argument is set to false, the board will not be copied to the buffer board where the counting is executed.
 
-
 ### board.nextStep() <a name = "nextStep"></a>
 
 Iterate to next time step.
@@ -193,7 +189,9 @@ This method iterates the board by a time step. It calls the `countNeighbors*` me
 After this method is called the values of the board will be updated.
 
 #### Example of board.nextStep(rule_string)
+
 Here is a program which prints and steps 4 times:
+
 ```cpp
 #include <gol/gol.hpp>
 #include <iostream>
@@ -230,7 +228,6 @@ int main() {
 }
 ```
 
-
 ### board.setWrap(state) <a name = "setWrap"></a>
 
 Set to toggle wrapping for counting neighbors.
@@ -243,6 +240,7 @@ The method takes one argument `state`. This should be a bool which represents wh
 
 #### Example of board.setWrap(state)
 Here is a program that disables board wrapping:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -259,13 +257,11 @@ Return the current wrap state.
 
 This method returns a bool. The return value indicates whether wrapping is enabled or disabled as true or false respectively.
 
-
 ### board.getNeighborhoodType() <a name = "getNeighborhoodType"></a>
 
 Return current neighborhood type.
 
 This method returns a string representing the current neighborhood type. This can be either `"moore"` or `"neumann"` representing a [Moore neighborhood](https://en.wikipedia.org/wiki/Moore_neighborhood) or a [von Neumann neighborhood](https://en.wikipedia.org/wiki/Von_Neumann_neighborhood) respectively.
-
 
 ### board.setFromFile(file_path) <a name = "setFromFile"></a>
 
@@ -283,17 +279,19 @@ The next `r` lines should contain a set of characters of size `c`. The character
 The file also supports comments at the end of lines. Comments can use any delimiter as long as there is a whitespace between the read value and itself.
 
 This is a valid board file named `board_files/board_file.txt`:
+
 ```
 5 <- this is the number of rows
 9 <- this is the number of columns
 -0-------
-----0---- 
+----0----
 ---Xx1---
 0------0-
 ----0----
 ```
 
 In your source file:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -304,6 +302,7 @@ int main() {
 ```
 
 The board should hold these values after calling the method:
+
 ```
 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0
@@ -312,20 +311,17 @@ The board should hold these values after calling the method:
 0 0 0 0 0 0 0 0 0
 ```
 
-
 ### board.getLiveCount() <a name = "getLiveCount"></a>
 
 Return the number of true elements.
 
 This method counts the number of elements on the board that are true and returns this number as an int.
 
-
 ### board.getDeadCount() <a name = "getDeadCount"></a>
 
 Return the number of false elements.
 
 This method counts the number of elements on the board that are false and returns this number as an int.
-
 
 ### board.setFromRLEFile() <a name = "setFromRLEFile"></a>
 
@@ -338,6 +334,7 @@ The board file should follow the RLE format, see the example below.
 #### Example of board.setFromRLEFile()
 
 This is a valid RLE file named `rle_files/dragon.rle`:
+
 ```
 #N Dragon
 #O Paul Tooke
@@ -351,6 +348,7 @@ obo5b3o2bo$5bo3bo3b3o2bo4bo5b$10bob2o5bobo4b2ob$12b2o14bo$12bo!
 ```
 
 In your source file:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -361,27 +359,27 @@ int main() {
 ```
 
 The board should hold these values after calling the method:
-```
-0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0 
-0 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 1 0 0 0 0 0 
-1 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 1 
-1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0 0 
-1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 1 1 0 
-0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
-0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 
-0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 
-0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
-1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 1 1 0 
-1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0 0 
-1 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 1 
-0 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 1 0 0 0 0 0 
-0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0 
-0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-```
 
+```
+0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0
+0 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 1 0 0 0 0 0
+1 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 1
+1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0 0
+1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 1 1 0
+0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0
+0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1
+1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 1 1 0
+1 1 0 0 0 1 0 1 1 0 0 0 0 0 0 1 0 0 0 1 0 1 0 1 0 0 0 0 0
+1 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 0 0 0 0 0 1 1 1 0 0 1
+0 0 0 0 0 1 0 0 0 1 0 0 0 1 1 1 0 0 1 0 0 0 0 1 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+```
 
 ### board.setRuleString(rule_string) <a name = "setRuleString"></a>
 
@@ -395,6 +393,7 @@ The default value of the rule string is equal to `"B3/S23"`. This means that cal
 
 #### Example of board.setRuleString(rule_string)
 Here is an example of setting the rule string to `B3/S1234`:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -404,15 +403,13 @@ int main() {
 }
 ```
 
-
 ### board.getRuleString() <a name = "getRuleString"></a>
 
 Return current rule string.
 
-This method returns the current rule string. 
+This method returns the current rule string.
 
 The returned rule string should be in [B/S notation](https://www.conwaylife.com/wiki/Rulestring#B.2FS_notation). For example, the rule string for Conway's Game of Life is `B3/S23`.
-
 
 ### board.saveAsFile(file_path) <a name = "saveAsFile"></a>
 
@@ -421,8 +418,10 @@ Save board as file.
 This method takes one argument `file_path` and writes the contents of the board (including its dimensions) to a file. The `file_path` argument should be a string and represent the path to the file to be written. If the file does not exist, a new file will be created. This file format can be read with the method `board.setFromFile(file_path)`.  
 
 #### Example of board.saveAsFile(file_path)
+
 This example reads a file in `.rle` file format and outputs a `.txt` file from it.
 `dragon.rle`:
+
 ```
 #N Dragon
 #O Paul Tooke
@@ -436,6 +435,7 @@ obo5b3o2bo$5bo3bo3b3o2bo4bo5b$10bob2o5bobo4b2ob$12b2o14bo$12bo!
 ```
 
 Your source file:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -447,6 +447,7 @@ int main() {
 ```
 
 `output.txt`:
+
 ```
 18
 29
@@ -471,18 +472,19 @@ OO...O..O......O.O.....OOO..O
 
 ```
 
-
 ### board.saveAsRLEFile(file_path) <a name = "saveAsRLEFile"></a>
 
 Save board as RLE file.
 
 This method takes one argument `file_path` and writes the contents of the board (including its dimensions and rule string) to a file in [RLE format](https://www.conwaylife.com/wiki/Run_Length_Encoded). The `file_path` argument should be a string and represent the path to the RLE file to be written. If the RLE file does not exist, a new file will be created. This RLE file format can be read with the method `board.setFromRLEFile(file_path)`.  
 
-Although it is valid to omit some segments of the board, such as dead cells at the end of a pattern line, the file from this method represents all cells. However, the file should still be able to read `.rle` files regardless if expected segments are omitted. 
+Although it is valid to omit some segments of the board, such as dead cells at the end of a pattern line, the file from this method represents all cells. However, the file should still be able to read `.rle` files regardless if expected segments are omitted.
 
 #### Example of board.saveAsRLEFile(file_path)
+
 This example reads a `.txt` file and outputs an `RLE` file from it.
 `dragon.txt`:
+
 ```
 18
 29
@@ -507,6 +509,7 @@ OO...O..O......O.O.....OOO..O
 ```
 
 Your source file:
+
 ```cpp
 #include <gol/gol.hpp>
 
@@ -518,6 +521,7 @@ int main() {
 ```
 
 `output.rle`:
+
 ```
 x = 29, y = 18, rule = B3/S23
 12bo16b$12b2o14bo$10bob2o5bobo4b2ob$5bo3bo3b3o2bo4bo5b$2o3bo2bo6bobo5b
