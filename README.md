@@ -4,6 +4,13 @@ gol is a [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) l
 With gol, you can easily simulate Conway's Game of Life cellular automaton in C++.
 gol is a single-file include which means you only need one header file to use it.
 
+## Features
+
+- A board class to iterate through and store a Conway's Game of Life simulation
+- Custom rule strings, wrapping, and neighborhood types
+- File parsing and saving (including support for run-length encoding)
+- [Documentation](DOCUMENTATION.md)
+
 ## Installation
 1. Download the latest [single header version](https://raw.githubusercontent.com/claby2/gol/master/single_include/gol/gol.hpp).
 2. Either put the header file in a central location (with a specified path) or directly in your project tree.
