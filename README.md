@@ -90,9 +90,26 @@ This will print the following twice:
 0 0 0 0 0 0 0 0 0 0 
 ```
 
+## Preview
+
+Previewing requires [SDL2](https://libsdl.org/download-2.0.php).
+
+Refer to the `/preview` directory to see how gol can be used with SDL2 to preview simulations graphically.
+
+Compile the previewer with:
+```
+$ make preview-compile
+```
+
+Run the previewer with:
+```
+$ make preview
+```
+
 ## Testing
 
 Testing requires [Catch2](https://github.com/catchorg/Catch2/).
+
 Compile with:
 ```
 $ make test-compile

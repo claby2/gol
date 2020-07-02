@@ -1,11 +1,16 @@
 OSFLAG :=
 ifeq ($(OS), Windows_NT)
-	executable = tests.exe
+	test-executable = tests.exe
 else
-	executable = ./tests
+	test-executable = ./tests
+endif
+ifeq ($(OS), Windows_NT)
+	preview-executable = preview.exe
+else
+	preview-executable = ./preview
 endif
 
-.PHONY: test-compile test test-all example-compile
+.PHONY: test-compile test test-all example-compile preview-compile preview preview-all
 
 test-compile:
 ifeq (,$(wildcard ./tests/tests-main.o))
@@ -16,7 +21,7 @@ else
 	@g++ -std=c++17 ./tests/tests-main.o ./tests/tests-gol.cpp -o ./tests/tests
 endif
 test:
-	@./tests/$(executable)
+	@./tests/$(test-executable)
 test-all: test-compile test
 
 example-compile:
@@ -30,3 +35,9 @@ example-compile:
 	@g++ ./example/randomized_board.cpp           -o ./example/randomized_board
 
 	@g++ ./example/mazectric.cpp                  -o ./example/mazectric
+
+preview-compile:
+	@g++ ./preview/preview.cpp -lSDL2main -lSDL2  -o ./preview/preview
+preview:
+	@./preview/$(preview-executable)
+preview-all: preview-compile preview-run
